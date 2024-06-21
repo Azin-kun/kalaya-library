@@ -25,17 +25,17 @@ router.post('/delete/:id', async function(req, res, next) {
   }
 });
 
-// GET route for editing a book
-router.get('/edit/:id', async function(req, res, next) {
-  try {
-    const { id } = req.params;
-    const book = await Bukus.findOne({ where: { kode_buku: id } });
-    res.render('editBook', { book });
-  } catch (error) {
-    console.error(error);
-    next(error);
-  }
-});
+// GET route for editing a book (Not needed since we're using a modal)
+// router.get('/edit/:id', async function(req, res, next) {
+//   try {
+//     const { id } = req.params;
+//     const book = await Bukus.findOne({ where: { kode_buku: id } });
+//     res.render('editBook', { book });
+//   } catch (error) {
+//     console.error(error);
+//     next(error);
+//   }
+// });
 
 // POST route for updating a book
 router.post('/edit/:id', async function(req, res, next) {

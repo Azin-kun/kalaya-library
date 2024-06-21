@@ -1,20 +1,21 @@
-var jwt = require('jsonwebtoken');
-const JWT_SECRET = 'kalaya'; // Replace with your own secret key
+const jwt = require('jsonwebtoken');
+const secretKey = 'kalaya'; // Replace with your actual secret key
 
-function verifyToken(req, res, next) {
-  const token = req.cookies.token; // Get token from cookies
+const verifyToken = (req, res, next) => {
+  const token = req.cookies.token || ''; // Assuming the token is stored in cookies
+
   if (!token) {
-    return res.status(403).json({ message: 'No token provided' });
+    return res.redirect('/login');
   }
 
-  jwt.verify(token, JWT_SECRET, (err, decoded) => {
-    if (err) {
-      return res.status(500).json({ message: 'Failed to authenticate token' });
-    }
-    req.petugasId = decoded.id;
-    req.nama_petugas = decoded.nama_petugas;
+  try {
+    const decoded = jwt.verify(token, secretKey);
+    req.user = decoded;
     next();
-  });
-}
+  } catch (err) {
+    console.error('Invalid token:', err);
+    return res.redirect('/login');
+  }
+};
 
 module.exports = verifyToken;

@@ -1,9 +1,10 @@
 var express = require('express');
 var router = express.Router();
-const { Bukus, Anggotas, Pinjams } = require('../models');
+var verifyToken = require('./middlewares/verifyToken');
 
+const { Bukus, Anggotas, Pinjams } = require('../models');
 /* GET home page. */
-router.get('/', async function(req, res, next) {
+router.get('/', verifyToken, async function(req, res, next) {
   try {
     const bukus = await Bukus.findAll(); // Fetch all books from the database
     const bukusCount = await Bukus.count();

@@ -1,56 +1,126 @@
 <h1>Books List</h1>
-    <div class="row">
-      <div class="col-12">
-        <div class="card">
-          <div class="card-header">
-            <h3 class="card-title">Books</h3>
-            <div class="card-tools">
-              <div class="input-group input-group-sm" style="width: 150px;">
-                <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-                <div class="input-group-append">
-                  <button type="submit" class="btn btn-default">
-                    <i class="fas fa-search"></i>
-                  </button>
-                </div>
-              </div>
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Books</h3>
+        <div class="card-tools">
+          <div class="input-group input-group-sm" style="width: 150px;">
+            <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+            <div class="input-group-append">
+              <button type="submit" class="btn btn-default">
+                <i class="fas fa-search"></i>
+              </button>
             </div>
           </div>
-          <!-- /.card-header -->
-          <div class="card-body table-responsive p-0">
-            <table class="table table-hover text-nowrap">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Title</th>
-                  <th>Author</th>
-                  <th>Category</th>
-                  <th>Publisher</th>
-                  <th>Year</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {{#each bukus}}
-                <tr>
-                  <td>{{this.kode_buku}}</td>
-                  <td>{{this.judul_buku}}</td>
-                  <td>{{this.pengarang}}</td>
-                  <td>{{this.kategori}}</td>
-                  <td>{{this.penerbit}}</td>
-                  <td>{{this.tahun_terbit}}</td>
-                  <td>
-                    <a href="/books/edit/{{this.kode_buku}}" class="btn btn-sm btn-primary">Edit</a>
-                    <form action="/books/delete/{{this.kode_buku}}" method="POST" style="display:inline;">
-                      <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                    </form>
-                  </td>
-                </tr>
-                {{/each}}
-              </tbody>
-            </table>
-          </div>
-          <!-- /.card-body -->
         </div>
-        <!-- /.card -->
       </div>
+      <!-- /.card-header -->
+      <div class="card-body table-responsive p-0">
+        <table class="table table-hover text-nowrap">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Title</th>
+              <th>Author</th>
+              <th>Category</th>
+              <th>Publisher</th>
+              <th>Year</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each bukus}}
+            <tr>
+              <td>{{this.kode_buku}}</td>
+              <td>{{this.judul_buku}}</td>
+              <td>{{this.pengarang}}</td>
+              <td>{{this.kategori}}</td>
+              <td>{{this.penerbit}}</td>
+              <td>{{this.tahun_terbit}}</td>
+              <td>
+                <button class="btn btn-sm btn-primary edit-btn" data-toggle="modal" data-target="#editModal" 
+                        data-id="{{this.kode_buku}}" data-title="{{this.judul_buku}}" 
+                        data-author="{{this.pengarang}}" data-category="{{this.kategori}}" 
+                        data-publisher="{{this.penerbit}}" data-year="{{this.tahun_terbit}}">
+                  Edit
+                </button>
+                <form action="/books/delete/{{this.kode_buku}}" method="POST" style="display:inline;">
+                  <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                </form>
+              </td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+      <!-- /.card-body -->
     </div>
+    <!-- /.card -->
+  </div>
+</div>
+
+<!-- Edit Modal -->
+<div class="modal fade" id="editModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Edit Book</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="editBookForm" action="/books/edit/{{this.kode_buku}}" method="POST"> <!-- Perubahan pada action -->
+        <div class="modal-body">
+          <input type="hidden" id="editBookId" name="kode_buku">
+          <div class="form-group">
+            <label for="editBookTitle">Title</label>
+            <input type="text" class="form-control" id="editBookTitle" name="judul_buku" required>
+          </div>
+          <div class="form-group">
+            <label for="editBookAuthor">Author</label>
+            <input type="text" class="form-control" id="editBookAuthor" name="pengarang" required>
+          </div>
+          <div class="form-group">
+            <label for="editBookCategory">Category</label>
+            <input type="text" class="form-control" id="editBookCategory" name="kategori" required>
+          </div>
+          <div class="form-group">
+            <label for="editBookPublisher">Publisher</label>
+            <input type="text" class="form-control" id="editBookPublisher" name="penerbit" required>
+          </div>
+          <div class="form-group">
+            <label for="editBookYear">Year</label>
+            <input type="number" class="form-control" id="editBookYear" name="tahun_terbit" required>
+          </div>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+      </form>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<script>
+  // Function to populate edit modal with book data
+  $('.edit-btn').on('click', function() {
+    var id = $(this).data('id');
+    var title = $(this).data('title');
+    var author = $(this).data('author');
+    var category = $(this).data('category');
+    var publisher = $(this).data('publisher');
+    var year = $(this).data('year');
+
+    $('#editBookId').val(id);
+    $('#editBookTitle').val(title);
+    $('#editBookAuthor').val(author);
+    $('#editBookCategory').val(category);
+    $('#editBookPublisher').val(publisher);
+    $('#editBookYear').val(year);
+  });
+</script>

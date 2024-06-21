@@ -1,9 +1,13 @@
 var express = require('express');
 var router = express.Router();
 var bcrypt = require('bcryptjs'); // Import bcryptjs library
+var jwt = require('jsonwebtoken'); // Import jsonwebtoken library
 
 // Import model Petugas
 const Petugas = require('../models').Petugas;
+
+// Secret key for JWT
+const secretKey = 'kalaya'; // Replace with your actual secret key
 
 // GET request to render the login page
 router.get("/", function (req, res, next) {
@@ -21,9 +25,17 @@ router.post('/verifylogin', async (req, res, next) => {
 
     // If petugas (staff member) is found and password matches, send success response
     if (petugas && await bcrypt.compare(password, petugas.password)) {
+      // Generate JWT token
+      const token = jwt.sign({ id: petugas.id, username: petugas.username }, secretKey, { expiresIn: '1h' });
+
       // Save petugas's name in session upon successful login
       req.session.petugasName = petugas.nama_petugas;
-      res.redirect('/'); // Redirect to homepage after successful login
+
+      // Set token in cookies
+      res.cookie('token', token, { httpOnly: true });
+
+      // Redirect to homepage after successful login
+      res.redirect('/');
     } else {
       // If petugas (staff member) not found or password doesn't match, send error response
       res.status(401).json({ message: 'Invalid username or password' });

@@ -63,3 +63,43 @@ To run the server, use:
 
 ```bash
 npm start
+```
+
+The server will be running at http://localhost:3000.
+
+### Database Migration
+
+To run database migrations:
+
+```bash
+npx sequelize-cli db:migrate
+```
+
+To undo the last migration:
+
+```bash
+npx sequelize-cli db:migrate:undo
+```
+
+### Seeding Data
+
+To seed the database with initial data:
+
+```bash
+npx sequelize-cli db:seed:all
+```
+
+To undo the seeding:
+
+```bash
+npx sequelize-cli db:seed:undo
+```
+
+## Project Structure
+
+- app.js: Main server file.
+- models/: Contains Sequelize models and associations.
+- routes/: Contains Express routes.
+- views/: Contains Handlebars templates.
+- public/: Contains static files (CSS, JS, images).
+- config/: Contains database configuration.

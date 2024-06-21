@@ -1,0 +1,126 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Dashboard</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+      name="viewport"
+    />
+    <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" href="/template/bootstrap/css/bootstrap.min.css" />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css"
+    />
+    <!-- Ionicons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css"
+    />
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/template/dist/css/AdminLTE.min.css" />
+    <!-- iCheck -->
+    <link rel="stylesheet" href="/template/plugins/iCheck/square/blue.css" />
+  </head>
+  <body class="hold-transition login-page">
+    <div class="container-fluid">
+      <h1>Welcome, {{petugasName}}</h1>
+
+      <!-- Small boxes (Stat box) -->
+      <div class="row">
+        <div class="col-lg-4 col-6">
+          <!-- small box -->
+          <div class="small-box bg-info">
+            <div class="inner">
+              <h3>{{bukusCount}}</h3>
+              <p>Jumlah Buku</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-book"></i>
+            </div>
+            <a href="#" class="small-box-footer">More info
+              <i class="fas fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-4 col-6">
+          <!-- small box -->
+          <div class="small-box bg-success">
+            <div class="inner">
+              <h3>{{anggotasCount}}</h3>
+              <p>Jumlah Anggota</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-person"></i>
+            </div>
+            <a href="#" class="small-box-footer">More info
+              <i class="fas fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-4 col-6">
+          <!-- small box -->
+          <div class="small-box bg-warning">
+            <div class="inner">
+              <h3>{{pinjamsCount}}</h3>
+              <p>Jumlah Peminjaman</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-clipboard"></i>
+            </div>
+            <a href="#" class="small-box-footer">More info
+              <i class="fas fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.container-fluid -->
+    
+    <!-- /.card -->
+    <div class="card">
+      <div class="card-header border-0">
+        <h3 class="card-title">Books</h3>
+        <div class="card-tools">
+          <a href="#" class="btn btn-tool btn-sm">
+            <i class="fas fa-download"></i>
+          </a>
+          <a href="#" class="btn btn-tool btn-sm">
+            <i class="fas fa-bars"></i>
+          </a>
+        </div>
+      </div>
+      <div class="card-body table-responsive p-0">
+        <table class="table table-striped table-valign-middle">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Author</th>
+              <th>Category</th>
+              <th>Publisher</th>
+              <th>Year</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each bukus}}
+              <tr>
+                <td>{{this.judul_buku}}</td>
+                <td>{{this.pengarang}}</td>
+                <td>{{this.kategori}}</td>
+                <td>{{this.penerbit}}</td>
+                <td>{{this.tahun_terbit}}</td>
+              </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- /.card -->
+    <!-- jQuery 2.2.3 -->
+    <script src="/template/plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <!-- Bootstrap 3.3.6 -->
+    <script src="/template/bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>

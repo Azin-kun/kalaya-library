@@ -1,0 +1,32 @@
+<h1>Edit Member</h1>
+    <form action="/anggotas/edit/{{anggota.no_anggota}}" method="POST">
+      <div class="form-group">
+        <label for="nama_anggota">Name</label>
+        <input type="text" class="form-control" id="nama_anggota" name="nama_anggota" value="{{anggota.nama_anggota}}">
+      </div>
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" class="form-control" id="username" name="username" value="{{anggota.username}}">
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password" name="password" placeholder="Enter new password if you want to change">
+      </div>
+      <div class="form-group">
+        <label for="alamat">Address</label>
+        <input type="text" class="form-control" id="alamat" name="alamat" value="{{anggota.alamat}}">
+      </div>
+      <div class="form-group">
+        <label for="no_telp">Phone</label>
+        <input type="text" class="form-control" id="no_telp" name="no_telp" value="{{anggota.no_telp}}">
+      </div>
+      <div class="form-group">
+        <label for="ttl">Birth Date</label>
+        <input type="date" class="form-control" id="ttl" name="ttl" value="{{formatDate anggota.ttl}}">
+      </div>
+      <div class="form-group">
+        <label for="prodi">Program</label>
+        <input type="text" class="form-control" id="prodi" name="prodi" value="{{anggota.prodi}}">
+      </div>
+      <button type="submit" class="btn btn-primary">Save</button>
+    </form>
